@@ -30,13 +30,19 @@ void quicksort(std::vector<int>& numbers) {
 }
 
 int main() {
-    constexpr long count = 1000000;
+    std::cout << "Greetings! This program will sort a specific amount of numbers using quicksort.\n" << std::endl;
+    std::cout << "Please enter the amount of numbers to sort: ";
+    long count;
+    std::cin >> count;
+    std::cout << "Preparing the number collection..." << std::endl;
     std::vector<int> numbers(count);
     for (int i = 0; i < count; i++)
         numbers[i] = static_cast<long int>(tan(i));
+    std::cout << "Sorting the numbers..." << std::endl;
     const auto start = std::chrono::high_resolution_clock::now();
     quicksort(numbers);
     const auto end = std::chrono::high_resolution_clock::now();
+    std::cout << "Done!" << std::endl;
 
     const std::chrono::duration<double> diff = end - start;
     std::cout << "Time taken: " << diff.count() << " seconds\n";
