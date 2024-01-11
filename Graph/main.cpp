@@ -6,9 +6,10 @@
 #include <bits/stdc++.h>
 
 std::mt19937 rng;
+int seed = 0;
 
-int random(const int min, const int max) {
-    rng.seed(std::chrono::high_resolution_clock::now().time_since_epoch().count());
+int random(const int i, const int c, const int min, const int max) {
+    rng.seed(seed + (i + 1) * (c + 1));
     std::uniform_int_distribution distribution(min, max);
     return distribution(rng);
 }
@@ -24,10 +25,11 @@ public:
     static Graph generateGraph(const int n) {
         Graph graph(n);
         for (int i = 0; i < n; i++) {
-            auto connections = random(0, n - 1);
+            auto connections = random(i, 0, 0, n - 1);
             std::set<int> connected;
+            int c = 0;
             while (connections > 0) {
-                if (const int v = random(0, n - 1); connected.find(v) == connected.end()) {
+                if (const int v = random(i, c++, 0, n - 1); connected.find(v) == connected.end()) {
                     graph.addEdge(i, v);
                     connected.insert(v);
                     connections--;
@@ -112,6 +114,10 @@ int main() {
     std::cout <<
             "Greetings, traveler! The purpose of this program is to measure the performance with different graph algorithms."
             << std::endl;
+    std::cout << "Firstly, enter the seed for the random generation: ";
+    std::cin >> seed;
+    if(seed == 0)
+        seed += 1;
     std::cout << "Enter the number of vertices: ";
     std::cout << std::endl;
     int n;
