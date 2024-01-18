@@ -25,14 +25,13 @@ public:
     static Graph generateGraph(const int n) {
         Graph graph(n);
         for (int i = 0; i < n; i++) {
-            auto connections = random(i, 0, 0, n - 1);
+            auto attempts = random(i, 0, 0, n - 1);
             std::set<int> connected;
             int c = 0;
-            while (connections > 0) {
+            while (attempts-- > 0) {
                 if (const int v = random(i, c++, 0, n - 1); connected.find(v) == connected.end()) {
                     graph.addEdge(i, v);
                     connected.insert(v);
-                    connections--;
                 }
             }
         }
